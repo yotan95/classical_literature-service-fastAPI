@@ -1,0 +1,33 @@
+# requirements.txt
+# Python 3.11 기준, 버전 핀 고정(Mac↔RPi4 동일 동작). pip install -r requirements.txt 로만 설치.
+# 모든 패키지는 ARM64(RPi4 Bookworm) wheel을 제공하는 것으로 선택.
+
+fastapi==0.115.6
+uvicorn[standard]==0.34.0
+pydantic==2.10.4
+pydantic-settings==2.7.0
+python-dotenv==1.0.1
+
+# Claude API 연동. Sonnet 4.6 + adaptive thinking 지원 위해 최신 핀(0.42.0은 thinking 미지원).
+# anthropic은 순수 파이썬이라 RPi4(ARM)에서도 안전.
+anthropic==0.111.0
+httpx==0.28.1
+
+openai==2.43.0
+pillow==12.1.0
+
+# 오디오극 음성 합성 — Google Cloud Text-to-Speech. grpc(grpcio) 기반이나
+# aarch64 manylinux wheel을 제공하므로 RPi4(ARM64)에서도 컴파일 없이 설치된다.
+# 인증은 GOOGLE_APPLICATION_CREDENTIALS(서비스계정 JSON)만 쓰고 키는 git에 넣지 않는다.
+google-cloud-texttospeech==2.34.0
+
+# 오디오극 라인 MP3 길이 측정(timepoints 계산용). 순수 파이썬이라 RPi4(ARM64)에서도 안전.
+mutagen==1.47.0
+
+# 표지 자동 생성 — app/data/에 book.json이 드롭되면 감지(파일 감시). Linux=inotify, Mac=FSEvents를
+# 쓰며 네이티브 컴파일이 없어 RPi4(ARM64)에서도 안전.
+watchdog==4.0.2
+
+# ※ 시스템 의존성(pip 아님): 단일 MP3 병합에 ffmpeg가 필요하다(재인코딩 없이 -c copy).
+#   RPi4(Bookworm)·Mac 모두 ARM 지원. 설치: Debian/RPi `sudo apt install ffmpeg`, Mac `brew install ffmpeg`.
+#   ffmpeg가 없으면 오디오극 tts 단계가 명확한 에러로 실패한다.

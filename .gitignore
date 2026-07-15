@@ -1,0 +1,40 @@
+# .gitignore
+# (1) 로컬 에디터/에이전트 설정 (2) 민감 정보(.env/키/토큰) (3) 환경/캐시
+
+# env / secrets
+.env
+.env.*
+# 예시 템플릿만 추적
+!.env.example
+*.pem
+*.key
+*_private*
+secrets/
+# Google Cloud 서비스계정 JSON(오디오극 TTS) — 절대 커밋 금지.
+*service-account*.json
+gcp-*.json
+
+# 합성 오디오 캐시(런타임 생성물 — 커밋하지 않음)
+app/audio/
+# 창작물 고유 표지 캐시(런타임 생성물 — 커밋하지 않음)
+app/creation_covers/
+
+# virtual env (Mac conda는 보통 프로젝트 밖이라 N/A이지만 venv 디렉터리는 제외)
+.venv/
+venv/
+
+# Local AI coding assistant settings
+.claude/
+.claude/settings.local.json
+
+# Python cache / build
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/
+
+
